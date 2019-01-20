@@ -4,7 +4,7 @@ print_influx_line() {
     echo "ups,host=gatekeeper.frals.int,ups=gatekeeper $1=$2"
 }
 
-INPUT_DATA=$(/bin/upsc ups@gatekeeper.frals.int:3493)
+INPUT_DATA=$(/bin/upsc ups@gatekeeper.frals.int:3493 | grep -v '^Init SSL')
 
 VOLTAGE=$(echo "$INPUT_DATA" | grep 'input.voltage:'|awk '{print $2}')
 BATTERY_CHARGE=$(echo "$INPUT_DATA" | grep 'battery.charge:'|awk '{print $2}')
